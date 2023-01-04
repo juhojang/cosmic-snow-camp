@@ -2,6 +2,8 @@ import React,{Component,useEffect} from 'react';
 import './memo'
 import Memo from './memo';
 
+
+
 class Counter extends Component{
     constructor(props){
         super(props);
@@ -28,15 +30,13 @@ class Counter extends Component{
         this.deleteMemo=this.deleteMemo.bind(this);
     }
 
+    
+
 
 
     componentWillMount() {
-        fetch('https://my-json-server.typicode.com/smashh712/json_placeholder/members/')
-            .then(res => res.json())
-            .then(data => this.setState({
-                posts: data
-            }));
-            this.setState({issues:['pink','gray']})
+
+
     }
 
     render(){
@@ -57,8 +57,13 @@ class Counter extends Component{
         const{issues}=this.state;
         const{color}=this.state;
         const{memoNumber}=this.state;
+        const{memoList}=this.state;
+
+        console.log(memoList)
+        console.log(this.state.memoList)
 
         return(
+            
             <div>
             <input type='checkbox' value='pink' onClick={this.handleClick}/>핑크
             <input type='checkbox' value='gray' onClick={this.handleClick}/>그레이
@@ -68,11 +73,12 @@ class Counter extends Component{
             
             </div>
             <div>
-            {this.state.memoList && this.state.memoList.map(memo=><Memo name={memo.C} time={memo.T} sentence={memo.S} deleteFuction={this.deleteMemo}></Memo>)}
+            {memoList&&memoList.map(memo=><Memo key={memo.S} name={memo.C} time={memo.T} sentence={memo.S} deleteFuction={this.deleteMemo}></Memo>)}
             </div>
         </div>
         );
     }
+
 
     updateMemo(){
         this.setState({
@@ -80,8 +86,7 @@ class Counter extends Component{
             memoNumber:this.state.memoNumber+1,
             memoS:''
         })
-        console.log(this.state.memoNumber)
-        console.log(this.state.memoList)
+
     }
 
     deleteMemo(data){
@@ -91,7 +96,6 @@ class Counter extends Component{
             memoS:''
         })
         console.log(data)
-        console.log(this.state.memoList)
     }
 
     memoSentence(event){
@@ -115,8 +119,9 @@ class Counter extends Component{
             checkedpink:true
         })
     }
-        console.log(this.state.color)
-        console.log(this.state.checkedpink)
+    console.log(this.state.color);
+    console.log(this.state.checkedpink);
+
     }
 }
 
